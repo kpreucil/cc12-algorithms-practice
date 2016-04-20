@@ -105,3 +105,73 @@ function integer(arr) {
 
 console.log(integer([1,2,5]) == 3);
 console.log(integer([1,2,3,4,5]) == 6);
+
+/*
+Problem 5 - with class
+Write a function which takes an array of integers and returns an array with any duplicate integers removed.
+[1,1,2,3,1,2,3] -> [1,2,3]
+[1,4,4,4,2,2,4,4,4] -> [1,4,2]
+*/
+
+//need to look through the array and remember which numbers we have seen before to recognize which are repeated
+
+////ORIGINAL first part of 5
+//function removeDupes(arr) {
+//    "use strict"
+//    var newArr = [];
+//    for (var i =0; i < arr.length; i++) {
+//        var lookingFor = arr[i];
+//        var foundIt = false;
+//        for (var j = 0; j < newArr.length; j++) { //every time we do an i loop we run a j loop
+//            if (newArr[j] == lookingFor) {
+//                foundIt = true;
+//            }
+//        } if (!foundIt) {
+//            newArr[newArr.length] = lookingFor;
+//        }
+//    }
+//    return newArr;
+//}
+
+//#5 simplified with new knowledge of metho
+
+function removeDupes(arr) {
+    "use strict"
+    var newArr = [];
+    for (var i =0; i < arr.length; i++) {
+        if(newArr.indexOf(arr[i]) == -1) {
+            newArr.push(arr[i]);
+        }
+    }
+    return newArr;
+}
+
+//this doesn't actually work yet. We need to compare the arrays
+
+function cmpArr(arrA, arrB){
+    "use strict"
+    if (arrA.length != arrB.length) { //this guards against unequal array lengths = guard array
+        return false;
+    }
+    for (var i=0; i < arrA.length; i++) { 
+        //Determine if arrA[0] == arrB[0]. If we were looking for any element in arrA to be present somewhere in arrB requires a much more complicated array
+        if (arrA[i] != arrB[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+//test cmpArr before testing removeDupes
+console.log(cmpArr([0],[0]) == true);
+console.log(cmpArr([1,2,3],[1,3,2]) == false);
+console.log(cmpArr([],[1]) == false);
+console.log(cmpArr([],[]) == true);
+console.log(cmpArr([0,1,2],[0,1,2]) == true);
+
+console.log(cmpArr(removeDupes([1,1,2,3,1,2,3]), [1,2,3]) == true);
+console.log(cmpArr(removeDupes([1,4,4,4,2,2,4,4,4]), [1,4,2]) == true);
+
+//NEW
+
+
